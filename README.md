@@ -5,22 +5,18 @@
 </p>
 
 <p align="center">
-A hardware-based reaction time training system implemented in <strong>Verilog HDL</strong> for an FPGA development board.
+  <strong>A hardware-based reaction time training system implemented in Verilog HDL on an FPGA.</strong>
+</p>
+
+<p align="center">
+This project demonstrates the implementation of a complete digital system capable of measuring a user's reaction time through a randomized traffic-light sequence. The design combines finite state machines, pseudo-random number generation, timers, multiplexed displays, PWM, and hardware debouncing into a modular FPGA application.
 </p>
 
 ---
 
-## Overview
+# Demo
 
-The **FPGA Reaction Training System** is a digital hardware project designed to measure a user's reaction time through an interactive traffic-light sequence. The system is entirely implemented in **Verilog HDL**, demonstrating fundamental digital design concepts including finite state machines, timers, pseudo-random number generation, PWM, button debouncing, and multiplexed seven-segment displays.
-
-Unlike software implementations, every function executes directly in FPGA hardware, providing deterministic timing and allowing users to gain hands-on experience with digital system design.
-
----
-
-## Demo
-
-🎥 **Project Demonstration**
+🎥 **Watch the project demonstration:**
 
 https://youtu.be/demo-reaction-training-system
 
@@ -28,22 +24,31 @@ https://youtu.be/demo-reaction-training-system
 
 ---
 
-## Features
+# Overview
 
-- Finite State Machine (FSM) architecture
-- Modular Verilog design
-- Random delay generation using a 3-bit LFSR
-- Real-time reaction time measurement
-- Traffic-light LED sequence
-- Multiplexed four-digit seven-segment display
-- PWM-controlled passive buzzer
-- Hardware button debouncing
-- FPGA-ready constraints file
-- Synthesizable RTL design
+The **FPGA Reaction Training System** is a digital hardware project developed entirely in **Verilog HDL**. The objective is to measure a user's reaction time by presenting a randomized traffic-light sequence that prevents the user from anticipating when to react.
+
+Unlike software-based implementations, every subsystem executes directly in FPGA hardware, making the design deterministic while reinforcing core digital design principles such as sequential logic, finite state machines, timing, and modular RTL development.
 
 ---
 
-## Hardware
+# Features
+
+- Verilog HDL implementation
+- Fully synthesizable RTL design
+- Modular architecture
+- Finite State Machine (FSM)
+- Randomized wait time using a 3-bit LFSR
+- Reaction time measurement
+- Multiplexed four-digit seven-segment display
+- Traffic-light LED sequence
+- PWM-controlled passive buzzer
+- Hardware button debouncing
+- Vivado compatible
+
+---
+
+# Hardware Components
 
 - FPGA Development Board
 - Breadboard
@@ -52,12 +57,12 @@ https://youtu.be/demo-reaction-training-system
 - Green LED
 - Passive Buzzer
 - Pushbuttons
-- Seven-segment Display
+- Seven-Segment Display
 - Jumper Wires
 
 ---
 
-## System Inputs
+# System Inputs
 
 | Input | Description |
 |--------|-------------|
@@ -68,48 +73,50 @@ https://youtu.be/demo-reaction-training-system
 
 ---
 
-## System Outputs
+# System Outputs
 
 | Output | Description |
 |--------|-------------|
 | Red LED | Initial state |
 | Yellow LED | Random waiting period |
 | Green LED | User reaction signal |
-| Seven-Segment Display | Displays reaction time |
+| Seven-Segment Display | Displays the measured reaction time |
 | Passive Buzzer | Audio feedback |
 
 ---
 
-# How It Works
+# System Operation
+
+The reaction test follows the sequence below:
 
 1. The user presses the **Start** button.
 2. The **Red LED** turns on.
-3. The **Yellow LED** stays on for a randomized amount of time.
-4. The random delay is generated using a **3-bit Linear Feedback Shift Register (LFSR)**.
-5. Once the delay expires, the **Green LED** turns on.
+3. The **Yellow LED** remains active for a randomized amount of time.
+4. A **3-bit Linear Feedback Shift Register (LFSR)** generates the random waiting period.
+5. The **Green LED** turns on.
 6. The reaction timer immediately starts.
-7. The user presses the **Reaction Button**.
+7. The user presses the **Reaction** button.
 8. The elapsed reaction time is captured.
-9. The measured value is displayed on the multiplexed seven-segment display.
-10. The user may begin another attempt.
+9. The measured value is displayed on the seven-segment display.
+10. The user can immediately begin another attempt.
 
 ---
 
 # Finite State Machine
 
-The system behavior is controlled by a finite state machine responsible for managing the traffic-light sequence, random delay generation, reaction timer, display updates, and restart logic.
+The system behavior is controlled through a Finite State Machine responsible for coordinating the traffic-light sequence, random delay generation, reaction timer, display updates, and restart logic.
 
 <p align="center">
-<img src="./images/shapes.png" width="700">
+<img src="./images/fsm.png" width="700">
 </p>
 
 ---
 
 # RTL Schematic
 
-The following RTL schematic was generated by **Xilinx Vivado** after synthesis and illustrates the hardware architecture of the complete system.
+The following RTL schematic was generated automatically by **Xilinx Vivado** after synthesis and illustrates the hardware architecture and module interconnections of the complete design.
 
-📄 **Complete RTL Schematic**
+📄 **RTL Schematic**
 
 [View RTL Schematic](./images/schematic.pdf)
 
@@ -122,7 +129,7 @@ FPGA-Reaction-Training-System
 │
 ├── images
 │   ├── reaction_training_systemimg.png
-│   ├── shapes.png
+│   ├── fsm.png
 │   └── schematic.pdf
 │
 ├── top.v
@@ -142,69 +149,69 @@ FPGA-Reaction-Training-System
 
 ---
 
-# Module Description
+# Verilog Modules
 
-## top.v
+## `top.v`
 
-Top-level module that integrates every subsystem of the project and connects the timers, FSM, display controller, buzzer, debouncer, random generator, and LED controller.
-
----
-
-## lights_3.v
-
-Implements the traffic-light sequence and controls the Red, Yellow, and Green LEDs according to the current FSM state.
+Top-level module that integrates every subsystem of the project, including the finite state machine, timers, display controller, random generator, buzzer, and input/output interfaces.
 
 ---
 
-## traffic_timers.v
+## `lights_3.v`
 
-Generates the timing signals required for the LED sequence and reaction time measurement.
-
----
-
-## display_system.v
-
-Controls the multiplexed seven-segment display and presents the measured reaction time.
+Controls the traffic-light sequence by driving the Red, Yellow, and Green LEDs according to the current system state.
 
 ---
 
-## randomGenerator.v
+## `traffic_timers.v`
 
-Implements the randomized waiting period before the Green LED is activated.
+Implements all timing requirements for the reaction test, including LED durations and reaction time measurement.
 
 ---
 
-## THREE_BIT_LFSR.v
+## `display_system.v`
+
+Drives the multiplexed four-digit seven-segment display and presents the measured reaction time.
+
+---
+
+## `randomGenerator.v`
+
+Generates the randomized delay before enabling the Green LED.
+
+---
+
+## `THREE_BIT_LFSR.v`
 
 Implements a 3-bit Linear Feedback Shift Register used for pseudo-random number generation.
 
 ---
 
-## THREE_BIT_COUNTER.v
+## `THREE_BIT_COUNTER.v`
 
-Counter used alongside the LFSR to create variable waiting times.
-
----
-
-## TOP_LFSR_COUNTER.v
-
-Integrates the counter and LFSR into the complete random timing subsystem.
+Counter module used together with the LFSR to create randomized waiting intervals.
 
 ---
 
-## buzzer.v
+## `TOP_LFSR_COUNTER.v`
 
-Generates a PWM signal for the passive buzzer.
-
----
-
-## debouncing.v
-
-Removes mechanical switch bouncing from user button inputs.
+Combines the counter and LFSR into the complete random timing subsystem.
 
 ---
 
-## constraints.xdc
+## `buzzer.v`
+
+Generates a PWM signal that drives the passive buzzer.
+
+---
+
+## `debouncing.v`
+
+Filters mechanical switch bounce from the user buttons to ensure reliable input detection.
+
+---
+
+## `constraints.xdc`
 
 Contains the FPGA pin assignments required for synthesis and implementation.
 
@@ -233,13 +240,13 @@ This project demonstrates practical implementation of:
 
 1. Open **Xilinx Vivado**.
 2. Create a new RTL Project.
-3. Add every Verilog source file.
-4. Import the `constraints.xdc` file.
-5. Set `top.v` as the Top Module.
-6. Run Synthesis.
-7. Run Implementation.
+3. Add all Verilog source files.
+4. Import the **constraints.xdc** file.
+5. Set **top.v** as the Top Module.
+6. Run **Synthesis**.
+7. Run **Implementation**.
 8. Generate the Bitstream.
-9. Program the FPGA.
+9. Program the FPGA development board.
 10. Press the **Start** button to begin the reaction training sequence.
 
 ---
@@ -257,14 +264,14 @@ This project demonstrates practical implementation of:
 ## Finite State Machine
 
 <p align="center">
-<img src="./images/shapes.png" width="700">
+<img src="./images/fsm.png" width="700">
 </p>
 
 ---
 
 ## RTL Schematic
 
-📄 [Open RTL Schematic](./images/schematic.pdf)
+📄 **[Open RTL Schematic](./images/schematic.pdf)**
 
 ---
 
@@ -278,12 +285,18 @@ This project demonstrates practical implementation of:
 
 ---
 
+# Acknowledgments
+
+This project was developed as part of a Digital Design course. It provided hands-on experience in FPGA development, hardware description languages, finite state machines, and digital system integration.
+
+---
+
 # Video Credit
 
-The project demonstration video was recorded and edited by **Sergio A. Da Silva López**.
+The demonstration video was recorded and edited by **Sergio A. Da Silva López**.
 
 ---
 
 # License
 
-This project was developed for educational purposes as part of a Digital Design course.
+This project is intended for educational purposes.
