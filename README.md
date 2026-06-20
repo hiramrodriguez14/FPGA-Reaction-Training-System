@@ -277,11 +277,11 @@ This project demonstrates practical implementation of:
 
 # Contributors
 
-- **Hiram R. Rodríguez Hernández**
-- **Janzel Silva**
-- **Kevin Colón**
-- **Sergio A. Da Silva López**
-- **Nollan Rivera**
+- **Hiram R. Rodríguez Hernández (System Architecture, PWM and Buzzer)** 
+- **Janzel Silva (FSM)**
+- **Kevin Colón (LFSR Circuits)**
+- **Sergio A. Da Silva López (Multiplexed Seven Segment Display Circuits)**
+- **Nollan Rivera (Timers and Debouncer)**
 
 ---
 
