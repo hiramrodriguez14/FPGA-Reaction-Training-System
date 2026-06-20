@@ -18,7 +18,7 @@ This project demonstrates the implementation of a complete digital system capabl
 
 🎥 **Watch the project demonstration:**
 
-https://youtu.be/demo-reaction-training-system
+[https://youtu.be/demo-reaction-training-system](https://youtube.com/shorts/i1QAFg_iQxI?feature=share)
 
 > **Note:** The demonstration video is in **Spanish**.
 
